@@ -21,6 +21,11 @@
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
+  <div class="field">
+    <%= f.label :public_key %><br />
+    <%= f.password_field :public_key, autocomplete: "off" %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
