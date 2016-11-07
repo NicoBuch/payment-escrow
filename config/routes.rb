@@ -5,4 +5,12 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web, at: 'sidekiq'
   mount PgHero::Engine, at: 'pghero'
+
+  resources :users, only: [] do
+    collection do
+      post :become_mediator
+    end
+  end
+
+  resources :transactions
 end

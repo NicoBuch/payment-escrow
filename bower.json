@@ -1,0 +1,20 @@
+{
+  "name": "payment-escrow",
+  "homepage": "https://github.com/NicoBuch/payment-escrow",
+  "authors": [
+    "NicoBuch <nicolas.buchhalter@wolox.com.ar>"
+  ],
+  "description": "Payment Escrow App for Bitcoin Transactions",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/components",
+    "test",
+    "tests"
+  ]
+}
+

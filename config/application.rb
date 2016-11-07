@@ -20,7 +20,6 @@ module PaymentEscrow
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-
     if Rails.application.secrets.email_recipients_interceptors.present?
       Mail.register_interceptor RecipientInterceptor.new(
         Rails.application.secrets.email_recipients_interceptors,
