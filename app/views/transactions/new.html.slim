@@ -2,18 +2,17 @@
   h2
     | New Transaction
 .row
-  .form-group
+  .form-group#receiver
     = label_tag :receiver
-    = select_tag :receiver_id, options_for_select(@users.collect { |u| [u.email, u.id] }), class: 'form-control', required: true
-  .form-group
+    = select_tag :receiver_id, options_for_select(@users.collect { |u| [u.email, u.public_key] }), class: 'form-control', required: true
+  .form-group#mediator
     = label_tag :mediator
-    = select_tag :mediator_id, options_for_select(@mediators.collect { |u| [u.email, u.id] }), class: 'form-control', required: true
+    = select_tag :mediator_id, options_for_select(@mediators.collect { |u| [u.email, u.public_key] }), class: 'form-control', required: true
 
   .form-group
     = label_tag :satoshis
     = number_field_tag :satoshis, 0, step: 10, min: 0, class: 'form-control'
 
-  = hidden_field_tag :payer_id, value: current_user.id
+  = hidden_field_tag :payer_id, current_user.public_key
 
-  button#new-transaction-submit.btn.btn-primary
-    | Create
+  = link_to 'Create', '#', class: 'btn btn-primary', id: 'new-transaction-submit', data: { url: transactions_path }

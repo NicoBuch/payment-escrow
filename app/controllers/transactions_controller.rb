@@ -11,19 +11,29 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    address = Address.find_by(address_params)
-    render_errors('Address not found. Please try again', new_transaction_path) if address.nil?
+    address = find_or_initialize_address(address_params)
+    return head :bad_request unless address.save && transaction_params[:satoshis].to_i > 0
     Transaction.create(transaction_params.merge(address_id: address.id))
-    redirect_to transactions_path
+    head :ok
   end
 
   private
 
   def transaction_params
-    params.require(:transaction).permit(:satoshis)
+    params.permit(:satoshis)
   end
 
   def address_params
-    params.require(:transaction).permit(:key)
+    params.permit(:key, :receiver_pk, :payer_pk, :mediator_pk)
+  end
+
+  def find_or_initialize_address(parameters)
+    receiver = User.find_by_public_key(parameters[:receiver_pk])
+    payer = User.find_by_public_key(parameters[:payer_pk])
+    mediator = User.find_by_public_key(parameters[:mediator_pk])
+    return unless [receiver, payer, mediator].all? { |user| user.present? }
+    Address.find_or_initialize_by(
+      receiver: receiver, payer: payer, mediator: mediator, key: parameters[:key]
+    )
   end
 end

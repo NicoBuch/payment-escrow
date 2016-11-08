@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :users, only: [] do
     collection do
       post :become_mediator
+      get :public_keys
     end
   end
 

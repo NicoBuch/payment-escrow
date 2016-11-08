@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def index
-    @transactions = Transaction.joins(:address)
-                               .where('payer_id = :id OR receiver_id = :id', current_user.id)
+    @transactions = Transaction.includes(address: [:payer, :mediator, :receiver]).joins(:address)
+                               .where('payer_id = :id OR receiver_id = :id', id: current_user.id)
   end
 
   protected

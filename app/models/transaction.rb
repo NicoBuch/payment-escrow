@@ -4,4 +4,6 @@ class Transaction < ApplicationRecord
   enum status: [:pending, :completed, :cancelled]
 
   validates :address, :satoshis, presence: true
+
+  delegate :payer, :receiver, :mediator, to: :address
 end

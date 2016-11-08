@@ -7,7 +7,7 @@ class Address < ApplicationRecord
   validates :payer_id, uniqueness: { scope: [:receiver_id, :mediator_id] }
   validates :key, uniqueness: true
 
-  validates :valid_mediator
+  validate :valid_mediator
 
   private
 

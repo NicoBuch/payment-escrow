@@ -2,4 +2,23 @@ h2
   | My Transactions
 
 
+table.table.table-hover
+  tr.info
+    th.text-center #
+    th.text-center Payer
+    th.text-center Receiver
+    th.text-center Mediator
+    th.text-center Satoshis
+  - @transactions.each do |transaction|
+    tr
+      th.text-center = transaction.id
+      th.text-center = "#{transaction.payer.email} #{(transaction.payer == current_user)? '(me)' : ''}"
+      th.text-center = "#{transaction.receiver.email} #{(transaction.receiver == current_user)? '(me)' : ''}"
+      th.text-center = "#{transaction.mediator.email} #{(transaction.mediator == current_user)? '(me)' : ''}"
+      th.text-center = transaction.satoshis
+
+
+
+
+
 = link_to 'New Transaction', new_transaction_path
