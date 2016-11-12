@@ -34,3 +34,5 @@ dump.rdb
 
 # Ignore debugging history
 .byebug_history
+
+/bower_components

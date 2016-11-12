@@ -5,7 +5,8 @@ class Address < ApplicationRecord
 
   validates :payer, :receiver, :mediator, :key, presence: true
   validates :payer_id, uniqueness: { scope: [:receiver_id, :mediator_id] }
-  validates :key, uniqueness: true
+
+  validates :key, uniqueness: { scope: [:mediator, :receiver, :payer] }
 
   validate :valid_mediator
 
