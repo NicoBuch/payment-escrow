@@ -19,7 +19,7 @@ $(document).ready ->
           .from(utxos, [receiver_public_key, payer_public_key, mediator_public_key], 2)
           .to(receiver_address, parseInt(satoshis) - 20000)
           .change(address_key)
-        transaction.fee(transaction.getFee()).sign(private_key)
+        transaction.fee(10000).sign(private_key)
         $.post(apiUrl, { serialization: JSON.stringify(transaction) }, (data, status) ->
           if status == 'success'
             window.location.href = '/'

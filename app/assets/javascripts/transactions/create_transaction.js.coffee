@@ -29,7 +29,7 @@ $(document).ready ->
           else
             transaction = new bitcore.Transaction()
               .from(utxos)
-              .to(address, parseInt(satoshis))
+              .to(address, parseInt(satoshis) - 10000)
               .change(payer_address)
               .fee(10000)
               .sign(private_key)
@@ -46,3 +46,4 @@ $(document).ready ->
                 )
             )
       )
+
