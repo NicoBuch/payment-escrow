@@ -38,17 +38,20 @@
           - elsif transaction.pending?
             - if current_user == transaction.payer
               = link_to 'Pay', pay_transaction_path(transaction), class: 'btn btn-success'
-              = link_to 'Cancel', cancel_transaction_path(transaction), class: 'btn btn-danger', method: :put
+              = link_to 'Cancel', cancel_transaction_path(transaction), class: 'btn btn-danger', method: :post
             - else
               | Pending
           - elsif transaction.needs_mediation?
             - if current_user == transaction.mediator
-              .col-md-6
-                = button_to 'Accept'
-              .col-md-6
-                = button_to 'Deny'
+                = link_to 'Accept', accept_transaction_path(transaction), class: 'btn btn-success'
+                = link_to 'Deny', deny_transaction_path(transaction), class: 'btn btn-danger'
             - else
               | Waiting for Mediation
+          - elsif transaction.pending_recovery?
+            - if current_user == transaction.payer
+              = link_to 'Recover', recover_transaction_path(transaction), class: 'btn btn-success'
+            - else
+              | Pending Recovery
 
 .row
   = link_to 'New Transaction', new_transaction_path, class: 'btn btn-default'

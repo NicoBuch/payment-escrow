@@ -16,7 +16,7 @@ $(document).ready ->
           return $.growl.error message: 'Invalid Transaction'
         else
           params = { serialization: JSON.stringify(transaction) }
-          $.ajax(method: 'PUT', url: apiUrl, data: params, (data, status) ->
+          $.post(apiUrl, params, (data, status) ->
             if status == 'success'
               window.location.href = '/'
             else

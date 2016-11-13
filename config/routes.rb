@@ -18,8 +18,13 @@ Rails.application.routes.draw do
       get :start
       post :save_initialized
       get :pay
-      put :cancel
-      put :complete
+      post :cancel
+      post :complete
+      get :deny
+      get :accept
+      post :save_denied
+      get :recover
+      post :save_recovered
     end
   end
 end

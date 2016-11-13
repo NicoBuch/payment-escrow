@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
 
   def index
     @transactions = Transaction.includes(address: [:payer, :mediator, :receiver]).joins(:address)
-                               .where('payer_id = :id OR receiver_id = :id', id: current_user.id)
+                               .where('payer_id = :id OR receiver_id = :id OR mediator_id = :id',
+                                      id: current_user.id)
   end
 
   protected

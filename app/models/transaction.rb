@@ -1,7 +1,8 @@
 class Transaction < ApplicationRecord
   belongs_to :address
 
-  enum status: [:uninitialized, :pending, :needs_mediation, :completed, :cancelled]
+  enum status: [:uninitialized, :pending, :needs_mediation, :pending_recovery, :completed,
+                :cancelled]
 
   validates :address, :satoshis, presence: true
 

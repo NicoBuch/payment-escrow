@@ -30,6 +30,28 @@ class TransactionsController < ApplicationController
     transaction
   end
 
+  def deny
+    transaction
+  end
+
+  def save_denied
+    transaction.update(serialization: params[:serialization], status: :pending_recovery)
+    head :ok
+  end
+
+  def recover
+    transaction
+  end
+
+  def save_recovered
+    transaction.update(serialization: params[:serialization], status: :cancelled)
+    head :ok
+  end
+
+  def accept
+    transaction
+  end
+
   def complete
     transaction.update(serialization: params[:serialization], status: :completed)
     head :ok
