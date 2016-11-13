@@ -13,5 +13,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :transactions
+  resources :transactions do
+    member do
+      get :start
+      post :save_initialized
+      get :pay
+      put :cancel
+      put :complete
+    end
+  end
 end

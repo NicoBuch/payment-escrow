@@ -1,24 +1,55 @@
-h2
-  | My Transactions
+.row
+  .col-md-6
+    h2
+      | My Transactions
+  .col-md-6
+    .col-md-10
+    .col-md-2
+      = link_to 'Log Out', destroy_user_session_path, class: 'btn btn-default', method: :delete
 
+.row
 
-table.table.table-hover
-  tr.info
-    th.text-center #
-    th.text-center Payer
-    th.text-center Receiver
-    th.text-center Mediator
-    th.text-center Satoshis
-  - @transactions.each do |transaction|
-    tr
-      th.text-center = transaction.id
-      th.text-center = "#{transaction.payer.email} #{(transaction.payer == current_user)? '(me)' : ''}"
-      th.text-center = "#{transaction.receiver.email} #{(transaction.receiver == current_user)? '(me)' : ''}"
-      th.text-center = "#{transaction.mediator.email} #{(transaction.mediator == current_user)? '(me)' : ''}"
-      th.text-center = transaction.satoshis
+.row
+  table.table.table-hover
+    tr.info
+      th.text-center #
+      th.text-center Payer
+      th.text-center Receiver
+      th.text-center Mediator
+      th.text-center Satoshis
+      th
+    - @transactions.each do |transaction|
+      tr
+        th.text-center = transaction.id
+        th.text-center = "#{transaction.payer.email} #{(transaction.payer == current_user)? '(me)' : ''}"
+        th.text-center = "#{transaction.receiver.email} #{(transaction.receiver == current_user)? '(me)' : ''}"
+        th.text-center = "#{transaction.mediator.email} #{(transaction.mediator == current_user)? '(me)' : ''}"
+        th.text-center = transaction.satoshis
+        th.text-center
+          - if transaction.completed?
+            | Completed
+          - elsif transaction.cancelled?
+            | Cancelled
+          - elsif transaction.uninitialized?
+            - if current_user == transaction.receiver
+              = link_to 'Initialize', start_transaction_path(transaction), class: 'btn btn-default'
+            - else
+              | Uninitialized
+          - elsif transaction.pending?
+            - if current_user == transaction.payer
+              = link_to 'Pay', pay_transaction_path(transaction), class: 'btn btn-success'
+              = link_to 'Cancel', cancel_transaction_path(transaction), class: 'btn btn-danger', method: :put
+            - else
+              | Pending
+          - elsif transaction.needs_mediation?
+            - if current_user == transaction.mediator
+              .col-md-6
+                = button_to 'Accept'
+              .col-md-6
+                = button_to 'Deny'
+            - else
+              | Waiting for Mediation
 
+.row
+  = link_to 'New Transaction', new_transaction_path, class: 'btn btn-default'
 
-
-
-
-= link_to 'New Transaction', new_transaction_path

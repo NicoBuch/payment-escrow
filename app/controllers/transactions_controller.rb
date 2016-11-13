@@ -17,7 +17,34 @@ class TransactionsController < ApplicationController
     head :ok
   end
 
+  def start
+    transaction
+  end
+
+  def save_initialized
+    transaction.update(serialization: params[:serialization], status: :pending)
+    head :ok
+  end
+
+  def pay
+    transaction
+  end
+
+  def complete
+    transaction.update(serialization: params[:serialization], status: :completed)
+    head :ok
+  end
+
+  def cancel
+    transaction.update(status: :needs_mediation)
+    redirect_to root_path
+  end
+
   private
+
+  def transaction
+    @transaction ||= Transaction.includes(:address).find(params[:id])
+  end
 
   def transaction_params
     params.permit(:satoshis)

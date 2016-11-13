@@ -15,5 +15,6 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require bitcore-lib/bitcore-lib
+//= require bitcore-explorers/bitcore-explorers
 //= require growl/javascripts/jquery.growl
 //= require_tree .

@@ -11,8 +11,14 @@
 
   .form-group
     = label_tag :satoshis
-    = number_field_tag :satoshis, 0, step: 10, min: 0, class: 'form-control'
+    = number_field_tag :satoshis, 0, step: 100000, min: 100000, class: 'form-control'
+
+  .form-group
+    = label_tag :private_key
+    = password_field_tag :private_key, nil, class: 'form-control', placeholder: 'Your own Private Key'
 
   = hidden_field_tag :payer_id, current_user.public_key
 
   = link_to 'Create', '#', class: 'btn btn-primary', id: 'new-transaction-submit', data: { url: transactions_path }
+
+  = link_to 'Back', root_path, class: 'btn btn-default'

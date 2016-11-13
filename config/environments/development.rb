@@ -37,7 +37,7 @@ Rails.application.configure do
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
-  config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+  config.assets.paths << Rails.root.join('bower_components')
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large

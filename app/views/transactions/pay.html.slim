@@ -1,0 +1,12 @@
+.row
+  h2
+    | Pay Transaction
+
+.row
+  = hidden_field_tag :transaction_serialized, @transaction.serialization
+  .form-group#private-key
+    = label_tag :private_key
+    = password_field_tag :private_key, nil, class: 'form-control', required: true
+
+  = link_to 'Pay Transaction', '#', class: 'btn btn-primary', id: 'complete-transaction', data: { url: complete_transaction_path(@transaction) }
+  = link_to 'Back', root_path, class: 'btn btn-default'
