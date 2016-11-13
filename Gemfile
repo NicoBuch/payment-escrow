@@ -58,9 +58,6 @@ gem 'sidekiq_mailer'
 # Authorization Policies
 gem 'pundit'
 
-# Exceptions Report
-gem 'rollbar'
-
 # Postgres Insights
 gem 'pghero'
 
@@ -71,6 +68,8 @@ gem 'meta-tags'
 gem 'newrelic_rpm'
 
 gem 'recipient_interceptor'
+
+gem 'bower'
 
 group :development do
   # Gem to detect N+1 queries
